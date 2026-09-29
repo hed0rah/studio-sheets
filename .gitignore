@@ -1,0 +1,8 @@
+# the fonts are not shipped here: drop your own copies in (see README)
+fonts/*.ttf
+fonts/*.otf
+
+# build output next to a spec
+*.pdf
+*_p[0-9]*.png
+__pycache__/

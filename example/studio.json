@@ -1,0 +1,140 @@
+{
+  "title": "Studio signal flow",
+  "subtitle": "a 4-track at the centre, an audio interface, a small modular rack, as patched this month",
+  "doc": "STU-001",
+  "rev": "REV 2026.09",
+  "paper": "letter",
+  "grid_mm": 5,
+  "palette": "rally",
+  "footer_note": "?? = not confirmed at the desk. Ask, never guess a switch.",
+
+  "devices": [
+    {"id": "desk", "name": "4-TRACK CASSETTE", "sub": "4 TRACKS · 6 IN", "hub": true,
+     "at": [15, 8], "size": [13, 22], "badge": 1,
+     "notes": ["MAIN MIX: what goes to tape", "MONITOR MIX: what you hear", "RECORD: SAFE / DIRECT / BUSS"],
+     "ports": [
+       {"id": "ch1", "label": "CH 1  MIC/LINE", "side": "left", "pos": 3},
+       {"id": "ch2", "label": "CH 2  LINE", "side": "left", "pos": 8},
+       {"id": "ch3", "label": "CH 3  MIC/LINE", "side": "left", "pos": 13},
+       {"id": "sub", "label": "SUB IN L/R", "side": "left", "pos": 18},
+       {"id": "ch4", "label": "CH 4", "side": "bottom", "pos": 7},
+       {"id": "efx_send", "label": "", "side": "top", "pos": 4},
+       {"id": "efx_rtn", "label": "", "side": "top", "pos": 9},
+       {"id": "mon", "label": "MONITOR OUT L/R", "side": "right", "pos": 3},
+       {"id": "phones", "label": "PHONES", "side": "right", "pos": 7},
+       {"id": "tape_out", "label": "TAPE OUT 1-4", "side": "right", "pos": 11, "unused": true}
+     ]},
+
+    {"id": "reverb", "name": "REVERB", "sub": "effect loop, stereo return", "at": [17, 32], "size": [9, 3],
+     "ports": [
+       {"id": "in", "label": "IN", "side": "bottom", "pos": 2},
+       {"id": "out", "label": "OUT", "side": "bottom", "pos": 7}
+     ]},
+
+    {"id": "drums", "name": "DRUM MACHINE", "sub": "clock slave", "at": [2, 24], "size": [10, 5],
+     "ports": [{"id": "out", "label": "MAIN OUT", "side": "right", "pos": 2}]},
+    {"id": "synth", "name": "POLYSYNTH", "at": [2, 19], "size": [10, 4],
+     "ports": [{"id": "out", "label": "OUT L", "side": "right", "pos": 1}]},
+    {"id": "mic", "name": "MIC", "sub": "condenser, +48 V", "at": [2, 14], "size": [10, 4],
+     "ports": [{"id": "out", "label": "XLR", "side": "right", "pos": 1}]},
+    {"id": "tt", "name": "TURNTABLE", "sub": "line out", "at": [2, 10], "size": [10, 3], "muted": true,
+     "ports": [{"id": "out", "label": "L/R", "side": "right", "pos": 1}]},
+
+    {"id": "iface", "name": "AUDIO INTERFACE", "sub": "4 in / 12 out", "at": [34, 13], "size": [12, 16],
+     "notes": ["CV 1-2, CLOCK, IN 3: DC-coupled", "minis, for CV, gate and clock"],
+     "ports": [
+       {"id": "in12", "label": "IN 1/2", "side": "left", "pos": 2},
+       {"id": "out12", "label": "OUT 1/2", "side": "right", "pos": 2},
+       {"id": "out34", "label": "OUT 3/4", "side": "right", "pos": 5},
+       {"id": "out56", "label": "OUT 5/6", "side": "right", "pos": 8, "unused": true},
+       {"id": "phones", "label": "PHONES", "side": "right", "pos": 11},
+       {"id": "usb", "label": "", "short": "USB", "side": "top", "pos": 6},
+       {"id": "cv1", "label": "CV 1", "side": "bottom", "pos": 2},
+       {"id": "cv2", "label": "CV 2", "side": "bottom", "pos": 5},
+       {"id": "clock", "label": "CLK", "short": "CLOCK", "side": "bottom", "pos": 8},
+       {"id": "in3", "label": "IN 3", "side": "bottom", "pos": 11}
+     ]},
+    {"id": "laptop", "name": "LAPTOP · DAW", "at": [35, 30], "size": [10, 3],
+     "ports": [{"id": "usb", "label": "", "side": "bottom", "pos": 5}]},
+    {"id": "mons", "name": "MONITORS", "at": [47, 25], "size": [4, 4],
+     "ports": [{"id": "in", "label": "", "side": "left", "pos": 2}]},
+
+    {"id": "rack", "name": "EURORACK", "sub": "VCO  VCF  VCA x4  MIXER  CLOCK DIVIDER",
+     "at": [14, 1], "size": [34, 5], "badge": 3,
+     "ports": [
+       {"id": "mix", "label": "MIX OUT", "side": "top", "pos": 8},
+       {"id": "cv1", "label": "CV", "side": "top", "pos": 22},
+       {"id": "cv2", "label": "CV", "side": "top", "pos": 25},
+       {"id": "clock", "label": "CLK", "side": "top", "pos": 28},
+       {"id": "out", "label": "OUT", "side": "top", "pos": 31}
+     ]}
+  ],
+
+  "cables": [
+    {"from": "drums.out", "to": "desk.ch1"},
+    {"from": "synth.out", "to": "desk.ch2"},
+    {"from": "mic.out", "to": "desk.ch3"},
+    {"from": "tt.out", "to": "desk.sub", "label": "stereo"},
+    {"from": "rack.mix", "to": "desk.ch4"},
+    {"from": "desk.efx_send", "to": "reverb.in", "label": "EFX SEND"},
+    {"from": "reverb.out", "to": "desk.efx_rtn", "label": "RETURN"},
+    {"from": "desk.mon", "to": "iface.in12", "badge": 2},
+    {"from": "iface.out12", "to": "mons.in"},
+    {"from": "laptop.usb", "to": "iface.usb", "both": true, "label": "USB"},
+    {"from": "iface.cv1", "to": "rack.cv1", "kind": "cv"},
+    {"from": "iface.cv2", "to": "rack.cv2", "kind": "cv"},
+    {"from": "iface.clock", "to": "rack.clock", "kind": "cv", "badge": 4},
+    {"from": "rack.out", "to": "iface.in3"}
+  ],
+
+  "inserts": [
+    {"at": "desk.phones", "w": 4},
+    {"at": "desk.tape_out", "w": 4},
+    {"at": "iface.out34", "w": 3},
+    {"at": "iface.out56", "w": 3}
+  ],
+
+  "session": {
+    "fields": [
+      {"label": "DATE", "w": 62},
+      {"label": "PROJECT", "w": 140},
+      {"label": "TAPE / SIDE", "w": 60},
+      {"label": "COUNTER", "w": 50, "hint": "in - out"},
+      {"label": "BPM", "w": 30},
+      {"label": "SPEED", "ticks": ["HIGH", "NORMAL"]},
+      {"label": "NR", "ticks": ["ON", "OFF"]},
+      {"label": "PITCH", "dial": ["-", "+"]}
+    ],
+    "left_width": 440,
+    "tables": [
+      {"title": "4-TRACK: A ROW PER CHANNEL", "rows": ["1", "2", "3", "4"],
+       "columns": [
+         {"name": "SOURCE", "type": "blank", "w": 80, "hints": ["drum machine", "polysynth", "mic", "rack"]},
+         {"name": "INPUT", "type": "ticks", "options": ["MIC", "LINE"]},
+         {"name": "TRIM", "type": "dial"},
+         {"name": "EFX", "type": "dial"},
+         {"name": "PAN", "type": "dial", "marks": ["L", "R"]},
+         {"name": "RECORD", "type": "ticks", "options": ["SAFE", "DIR", "BUSS"]}
+       ]},
+      {"title": "ON TAPE", "rows": ["1", "2", "3", "4"],
+       "columns": [{"name": "WHAT, WHICH PASS, WHICH NR", "type": "blank", "w": 380}]}
+    ],
+    "clock": {"options": ["DAW", "DRUM MACHINE", "RACK", "none"], "slots": 8},
+    "port_lists": ["iface"],
+    "changes": 6
+  },
+
+  "cards_title": "Rules for this room",
+  "cards": [
+    {"n": 1, "title": "Two mixes", "lines": [
+      "The faders and MASTER build what goes to tape. The monitor section builds what you hear.",
+      "A signal can be in one and not the other: that is how an overdub hears old tracks without recording them again."]},
+    {"n": 2, "title": "Track through the desk", "lines": [
+      "Listen on the desk's own phones while tracking: no latency, and it works with the computer off.",
+      "The interface records the monitor mix for reference; mute that track while overdubbing or it loops."]},
+    {"n": 3, "title": "The rack's mix out", "lines": [
+      "Modular levels run hot, about 10 V peak to peak. Trim at the desk channel, not at the rack's mixer, so the rack patch stays as it was."]},
+    {"n": 4, "title": "DC-coupled outs", "lines": [
+      "Only DC-coupled interface outputs can send CV, gates or clock into the rack. Spend them on that, and keep audio on the others."]}
+  ]
+}
